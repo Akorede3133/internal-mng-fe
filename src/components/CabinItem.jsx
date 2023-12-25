@@ -1,8 +1,23 @@
 import { HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi2'
 import img from '../assets/bnb.webp'
+import { deleteCabin } from '../services/apiCabins'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 
-const CabinItem = ({ name, image, regular_price, max_capacity, discount }) => {
+const CabinItem = ({ name, image, regular_price, max_capacity, discount, id }) => {
+  const queryClient = useQueryClient();
+  const { isPending: isDeleting, mutate } = useMutation({
+    mutationFn: deleteCabin,
+    onSuccess: () => {
+      alert('successfully delete')
+      queryClient.invalidateQueries({
+        queryKey: ['cabins']
+      })
+    },
+    onError: () => {
+      alert('cannot be deleted')
+    }
+  })
   return (
     <li>
       <div>
@@ -19,7 +34,7 @@ const CabinItem = ({ name, image, regular_price, max_capacity, discount }) => {
           <HiOutlinePencil className=' text-sm' />
           <span className='text-sm'>Edit</span>
         </button>
-        <button className=' flex items-center gap-3 bg-red-600 text-white px-4 py-1 rounded-md'>
+        <button className=' flex items-center gap-3 bg-red-600 text-white px-4 py-1 rounded-md' onClick={() => mutate(id)} disabled={isDeleting}>
           <HiOutlineTrash className=' text-sm' />
           <span className='text-sm'>Delete</span>
         </button>
