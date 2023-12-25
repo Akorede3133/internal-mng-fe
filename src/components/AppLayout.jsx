@@ -4,10 +4,12 @@ import SideBar from "./SideBar"
 
 const AppLayout = () => {
   return (
-    <div className="md:grid h-screen grid-cols-[15rem,1fr] grid-rows-[auto,1fr]">
+    <div className="md:grid h-screen grid-cols-[20rem,1fr] grid-rows-[auto,1fr]">
       <Header />
       <SideBar />
-      <Outlet />
+      <main className=" bg-[#F9FAFB]">
+        <Outlet />
+      </main>
     </div>
   )
 }
