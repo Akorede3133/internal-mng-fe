@@ -1,17 +1,18 @@
 import { HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi2'
 import img from '../assets/bnb.webp'
-import { HiDotsVertical } from 'react-icons/hi'
-const CabinItem = () => {
+
+
+const CabinItem = ({ name, image, regular_price, max_capacity, discount }) => {
   return (
     <li>
       <div>
-        <img src={img} alt="" className='w-full h-[300px] object-cover rounded-md' />
+        <img src={image} alt="" className='w-full h-[300px] object-cover rounded-md' />
       </div>
       <div className='grid-cols-2 bg-red py-4'>
-        <p className=' font-bold'>Name: <span className=' text-[#4B5563] pl-2 text-sm '>002</span></p>
-        <p  className=' font-bold'>Capacity:<span className=' text-[#4B5563] text-sm pl-2 '>2</span></p>
-        <p className=' font-bold'>Price: <span className=' text-[#4B5563] pl-2 text-sm '>$350.00</span></p>
-        <p className=' font-bold'>Discount: <span className=' text-[#4B5563] pl-2 text-sm '>$50.00</span></p>
+        <p className=' font-bold'>Name: <span className=' text-[#4B5563] pl-2 text-sm '>{name}</span></p>
+        <p  className=' font-bold'>Capacity:<span className=' text-[#4B5563] text-sm pl-2 '>{max_capacity}</span></p>
+        <p className=' font-bold'>Price: <span className=' text-[#4B5563] pl-2 text-sm '>${regular_price}</span></p>
+        <p className=' font-bold'>Discount: <span className=' text-[#4B5563] pl-2 text-sm '>${discount}</span></p>
       </div>
       <div className='flex gap-3 items-center'>
         <button className=' flex items-center gap-3 bg-blue-600 text-white px-4 py-1 rounded-md'>
