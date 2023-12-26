@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import img from '../assets/bnb.webp';
 import { HiBars3CenterLeft, HiOutlineArrowRightOnRectangle, HiOutlineMoon, HiOutlineUser } from "react-icons/hi2";
 const Header = () => {
   return (

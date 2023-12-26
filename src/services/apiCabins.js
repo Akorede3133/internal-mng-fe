@@ -11,7 +11,7 @@ export const getCabins = async () => {
 
 export const deleteCabin = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/cabins/${id}`, {
+    const response = await fetch(`http://locallhost:3000/api/v1/cabins/${id}`, {
       method: 'DELETE'
     });
     if (!response.ok) throw new Error("Failed to delete");

@@ -1,23 +1,25 @@
 import { HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi2'
-import img from '../assets/bnb.webp'
 import { deleteCabin } from '../services/apiCabins'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 
 
 const CabinItem = ({ name, image, regular_price, max_capacity, discount, id }) => {
   const queryClient = useQueryClient();
-  const { isPending: isDeleting, mutate } = useMutation({
+  const { isPending: isDeleting, mutate, error, data } = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
-      alert('successfully delete')
       queryClient.invalidateQueries({
         queryKey: ['cabins']
       })
+      toast.success('Cabin deleted successsfully')
+
     },
     onError: () => {
-      alert('cannot be deleted')
+      toast.error('Cabin could not be deleted')
     }
   })
+
   return (
     <li>
       <div>
