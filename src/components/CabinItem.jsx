@@ -1,13 +1,17 @@
+/* eslint-disable react/prop-types */
 import { HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi2'
 import { deleteCabin } from '../services/apiCabins'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import CabinForm from './CabinForm'
+import { useState } from 'react'
 
 
-const CabinItem = ({ name, image_url, regular_price, max_capacity, discount, id, toggleForm }) => {
+const CabinItem = ({ cabin }) => {
+  const [showEditForm, setShowEditForm] = useState(false);
+  const { name, image_url, regular_price, max_capacity, discount, id } = cabin
   const queryClient = useQueryClient();
-  const { isPending: isDeleting, mutate, error, data } = useMutation({
+  const { isPending: isDeleting, mutate } = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -20,6 +24,10 @@ const CabinItem = ({ name, image_url, regular_price, max_capacity, discount, id,
       toast.error('Cabin could not be deleted')
     }
   })
+
+  const toggleEdit = () => {
+    setShowEditForm((prev) => !prev)
+  }
 
   return (
     <li>
@@ -34,7 +42,7 @@ const CabinItem = ({ name, image_url, regular_price, max_capacity, discount, id,
           <p className=' font-bold'>Discount: <span className=' text-[#4B5563] pl-2 text-sm '>${discount}</span></p>
         </div>
         <div className='flex gap-3 items-center'>
-          <button className=' flex items-center gap-3 bg-blue-600 text-white px-4 py-1 rounded-md' onClick={toggleForm}>
+          <button className=' flex items-center gap-3 bg-blue-600 text-white px-4 py-1 rounded-md' onClick={toggleEdit}>
             <HiOutlinePencil className=' text-sm'  />
             <span className='text-sm'>Edit</span>
           </button>
@@ -44,7 +52,7 @@ const CabinItem = ({ name, image_url, regular_price, max_capacity, discount, id,
           </button>
         </div>
       </div>
-      {/* {false && <CabinForm /> } */}
+      {showEditForm && <CabinForm cabin={cabin} id={id} toggleEdit={toggleEdit} /> }
     </li>
   )
 }

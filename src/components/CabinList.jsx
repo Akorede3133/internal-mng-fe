@@ -17,7 +17,7 @@ const CabinList = ( { toggleForm } ) => {
     <div>
        <ul className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4 ">
           {
-            cabins.map((cabin) => <CabinItem key={cabin.id} {...cabin} toggleForm={toggleForm} />)
+            cabins.map((cabin) => <CabinItem key={cabin.id} cabin={cabin} toggleForm={toggleForm} />)
           }
       </ul>
     </div>
