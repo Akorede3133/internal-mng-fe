@@ -3,43 +3,30 @@ import { useForm } from "react-hook-form"
 import { HiOutlineXMark } from "react-icons/hi2"
 import { createCabin, updateCabin } from "../services/apiCabins";
 import toast from "react-hot-toast";
+import { useCreateCabin } from "../hooks/useCreateCabin";
+import { useEditCabin } from "../hooks/useEditCabin";
 
 const CabinForm = ({ toggleForm, cabin, id, toggleEdit }) => { 
 
-  const {register, handleSubmit} = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: toggleEdit ? cabin : {}
   });
-
-  const queryClient = useQueryClient()
-  const {isPending, mutate, reset} = useMutation({
-    mutationFn: createCabin,
-    onSuccess: () => {
-      toast.success('Cabin was created sucessfuly')
-      queryClient.invalidateQueries({queryKey: ['cabins']})
-      reset()
-      toggleForm()
-    },
-    onError: () => {
-      toast.error('Cabin could not be created')
-    }
-  })
-
-  const {isPending: isEditing, mutate: editCabin, reset: resetEdit} = useMutation({
-    mutationFn: (data) => updateCabin(data, id),
-    onSuccess: () => {
-      toast.success('Cabin was edited sucessfuly')
-      queryClient.invalidateQueries({queryKey: ['cabins']})
-      resetEdit()
-      toggleEdit()
-    },
-    onError: () => {
-      toast.error('Cabin could not be edited')
-    }
-  })
+  const { isCreating, createNewCabin } = useCreateCabin()
+  const { isEditing, editCabin } = useEditCabin();
 
 
   const onSubmit = (data) => {
-    toggleEdit ? editCabin(data, id) : mutate(data)
+    toggleEdit ? editCabin(data, {
+      onSuccess: () => {
+        toggleEdit()
+        reset()
+      }
+    }) : createNewCabin(data, {
+      onSuccess: () => {
+        reset()
+        toggleForm()
+      }
+    })
   }
 
   return (
@@ -74,7 +61,7 @@ const CabinForm = ({ toggleForm, cabin, id, toggleEdit }) => {
 
       <section className=" flex justify-end gap-4 mt-5">
         <button type="button" className="px-4 py-2 text-gray-300 border border-gray-300 rounded-md font-medium" onClick={toggleForm || toggleEdit }>Cancel</button>
-        <button className="px-4 py-2 text-white bg-blue-600 rounded-md font-medium" disabled={isPending}> { toggleEdit ? 'Edit cabin' : 'Create new cabin' }</button>
+        <button className="px-4 py-2 text-white bg-blue-600 rounded-md font-medium" disabled={isCreating || isEditing }> { toggleEdit ? 'Edit cabin' : 'Create new cabin' }</button>
       </section>
     </form>
   )

@@ -48,10 +48,8 @@ export const createCabin = async (data) => {
 }
 
 export const updateCabin = async (editData, id) => {
-  console.log(editData, id);
   const { name, max_capacity, regular_price, discount, description } = editData;
     const image = editData.image[0]
-    console.log(image);
     const formData = new FormData();
 
     formData.append('cabin[name]', name)
