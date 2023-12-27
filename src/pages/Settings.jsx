@@ -4,10 +4,14 @@ const Settings = () => {
   const { isPending, data, error } = useGetSettings();
 
   const handleSettingUpdate = (e) => {
-
+    e.preventDefault();
+    const { value, name } = e.target;
+    console.log(value, name);
   }
 
   if (isPending) return <p>loading...</p>
+  if (error) return <p>{error.message}</p>
+
 
   const { min_nights, max_nights, max_guests, breakfast_price } = data;
 
@@ -17,19 +21,19 @@ const Settings = () => {
       <form className="bg-white shadow-md p-4" >
       <section className="grid grid-cols-3 items-center border-b  border-gray-300 py-3">
         <label htmlFor="min_nights" className=" font-medium">Minimum nights/booking</label>
-        <input type="number"  id="min_nights" className=" border border-gray-300 rounded-md px-3 py-2" value={min_nights}  />
+        <input type="number" name="min_nights"  id="min_nights" className=" border border-gray-300 rounded-md px-3 py-2" defaultValue={min_nights} onBlur={handleSettingUpdate}  />
       </section>
       <section className="grid grid-cols-3 items-center border-b  border-gray-300 py-3">
         <label htmlFor="max_nights" className=" font-medium">Maximum nights/booking</label>
-        <input type="number"  id="max_nights" className=" border border-gray-300 rounded-md px-3 py-2" value={max_nights}  />
+        <input type="number" name="max_nights"  id="max_nights" className=" border border-gray-300 rounded-md px-3 py-2" defaultValue={max_nights} onBlur={handleSettingUpdate}  />
       </section>
       <section className="grid grid-cols-3 items-center border-b  border-gray-300 py-3">
         <label htmlFor="max_guests" className=" font-medium">Maximum guests/booking</label>
-        <input type="number"  id="max_guests" className=" border border-gray-300 rounded-md px-3 py-2" value={max_guests}  />
+        <input type="number" name="max_guests"  id="max_guests" className=" border border-gray-300 rounded-md px-3 py-2" defaultValue={max_guests} onBlur={handleSettingUpdate} />
       </section>
       <section className="grid grid-cols-3 items-center py-3">
         <label htmlFor="breakfast_price" className=" font-medium">Breakfast price</label>
-        <input type="number"  id="breakfast_price" className=" border border-gray-300 rounded-md px-3 py-2" value={breakfast_price}  />
+        <input type="number" name="breakfast_price"  id="breakfast_price" className=" border border-gray-300 rounded-md px-3 py-2" defaultValue={breakfast_price} onBlur={handleSettingUpdate}  />
       </section>
     </form>
     </section>
