@@ -8,7 +8,7 @@ import { useEditCabin } from "../hooks/useEditCabin";
 
 const CabinForm = ({ toggleForm, cabin, id, toggleEdit }) => { 
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: toggleEdit ? cabin : {}
   });
   const { isCreating, createNewCabin } = useCreateCabin()
@@ -19,11 +19,9 @@ const CabinForm = ({ toggleForm, cabin, id, toggleEdit }) => {
     toggleEdit ? editCabin(data, {
       onSuccess: () => {
         toggleEdit()
-        reset()
       }
     }) : createNewCabin(data, {
       onSuccess: () => {
-        reset()
         toggleForm()
       }
     })
