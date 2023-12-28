@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react'
 import { HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi2'
 import { deleteCabin } from '../services/apiCabins'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import CabinForm from './CabinForm'
-import { useState } from 'react'
-
+import CabinForm from './CabinForm';
+import Modal from './Modal';
 
 const CabinItem = ({ cabin }) => {
   const [showEditForm, setShowEditForm] = useState(false);
@@ -42,17 +42,23 @@ const CabinItem = ({ cabin }) => {
           <p className=' font-bold'>Discount: <span className=' text-[#4B5563] pl-2 text-sm '>${discount}</span></p>
         </div>
         <div className='flex gap-3 items-center'>
-          <button className=' flex items-center gap-3 bg-blue-600 text-white px-4 py-1 rounded-md' onClick={toggleEdit}>
-            <HiOutlinePencil className=' text-sm'  />
-            <span className='text-sm'>Edit</span>
-          </button>
+          <Modal>
+            <Modal.Open opens="edit-form">
+              <button className=' flex items-center gap-3 bg-blue-600 text-white px-4 py-1 rounded-md' onClick={toggleEdit}>
+                <HiOutlinePencil className=' text-sm'  />
+                <span className='text-sm'>Edit</span>
+              </button>
+            </Modal.Open>
+            <Modal.Window name="edit-form">
+            <CabinForm cabin={cabin}   /> 
+            </Modal.Window>
+          </Modal>
           <button className=' flex items-center gap-3 bg-red-600 text-white px-4 py-1 rounded-md' onClick={() => mutate(id)} disabled={isDeleting}>
             <HiOutlineTrash className=' text-sm' />
             <span className='text-sm'>Delete</span>
           </button>
         </div>
       </div>
-      {showEditForm && <CabinForm cabin={cabin} id={id} toggleEdit={toggleEdit} /> }
     </li>
   )
 }
