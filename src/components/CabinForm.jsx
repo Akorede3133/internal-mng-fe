@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { useCreateCabin } from "../hooks/useCreateCabin";
 import { useEditCabin } from "../hooks/useEditCabin";
-
 const CabinForm = ({ cabin = {}, onCloseModal }) => {
   const { id: cabinId } = cabin;
   const { register, handleSubmit } = useForm({
@@ -25,7 +24,7 @@ const CabinForm = ({ cabin = {}, onCloseModal }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="">
+    <form  onSubmit={handleSubmit(onSubmit)} className="">
       <section className="grid grid-cols-3 items-center border-b  border-gray-300 py-3">
         <label htmlFor="name" className=" font-medium">Cabin name</label>
         <input type="text"  id="name" className=" border border-gray-300 rounded-md py-1" {...register('name')} />

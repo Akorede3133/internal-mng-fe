@@ -1,7 +1,8 @@
-import { createContext, useContext, useState, cloneElement } from "react"
+import { createContext, useContext, useState, cloneElement, useRef, useEffect } from "react"
 import Overlay from "./Overlay";
 import { createPortal } from "react-dom";
 import { HiOutlineXMark } from "react-icons/hi2";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const ModalContext = createContext();
 
@@ -29,13 +30,15 @@ const Open = ( { children, opens } ) => {
 
 const Window = ({ children, name }) => {
   const { openModal, close } = useContext(ModalContext)
+
+  const ref = useOutsideClick(close);
   if (openModal !== name ) return null;
 
   return createPortal (
     <Overlay >
-      <div className="p-4 shadow-lg my-10 fixed z-10 w-[90%] md:w-[60%] left-[50%] translate-x-[-50%]  top-[5%]  bg-white transition-all delay-75">
-        <button className="w-full flex justify-end" onClick={close}>
-          <HiOutlineXMark className=" text-2xl cursor-pointer" />
+      <div ref={ref} className="p-4 shadow-lg my-10 fixed z-10 w-[90%] md:w-[60%] left-[50%] translate-x-[-50%]  top-[5%]  bg-white transition-all delay-75">
+        <button className="w-full flex justify-end" >
+          <HiOutlineXMark className="text-2xl cursor-pointer" onClick={close} />
         </button>
         {cloneElement(children, { onCloseModal: close }) }
       </div>
