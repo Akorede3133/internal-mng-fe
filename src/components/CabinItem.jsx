@@ -18,7 +18,9 @@ const CabinItem = ({ cabin }) => {
           <p className=' font-bold'>Name: <span className=' text-[#4B5563] pl-2 text-sm '>{name}</span></p>
           <p  className=' font-bold'>Capacity:<span className=' text-[#4B5563] text-sm pl-2 '>{max_capacity}</span></p>
           <p className=' font-bold'>Price: <span className=' text-[#4B5563] pl-2 text-sm '>${regular_price}</span></p>
-          <p className=' font-bold'>Discount: <span className=' text-[#4B5563] pl-2 text-sm '>${discount}</span></p>
+          <p className=' font-bold'>Discount: <span className=' text-[#4B5563] pl-2 text-sm '>{
+            discount ? `$${discount}` : <span>&mdash;</span>
+          }</span></p>
         </div>
         <div className='flex gap-3 items-center'>
           <Modal>
