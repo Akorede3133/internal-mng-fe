@@ -36,11 +36,13 @@ const Window = ({ children, name }) => {
 
   return createPortal (
     <Overlay >
-      <div ref={ref} className="p-4 shadow-lg my-10 fixed z-10 w-[90%] md:w-[60%] left-[50%] translate-x-[-50%]  top-[5%]  bg-white transition-all delay-75">
+      <div ref={ref} className=" bg-white p-4 shadow-lg my-10 fixed z-10  left-[50%] translate-x-[-50%] w-[90%] md:w-[60%] translate-y-[-50%]  top-[50%] transition-all delay-75">
         <button className="w-full flex justify-end" >
           <HiOutlineXMark className="text-2xl cursor-pointer" onClick={close} />
         </button>
-        {cloneElement(children, { onCloseModal: close }) }
+        <div className="w-full">
+          {cloneElement(children, { onCloseModal: close }) }
+        </div>
       </div>
     </Overlay>,
     document.body

@@ -1,33 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
 import { HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi2'
-import { deleteCabin } from '../services/apiCabins'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
 import CabinForm from './CabinForm';
 import Modal from './Modal';
+import DeleteCabinWindow from './DeleteCabinWindow'
 
 const CabinItem = ({ cabin }) => {
-  const [showEditForm, setShowEditForm] = useState(false);
+
   const { name, image_url, regular_price, max_capacity, discount, id } = cabin
-  const queryClient = useQueryClient();
-  const { isPending: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['cabins']
-      })
-      toast.success('Cabin deleted successsfully')
-
-    },
-    onError: () => {
-      toast.error('Cabin could not be deleted')
-    }
-  })
-
-  const toggleEdit = () => {
-    setShowEditForm((prev) => !prev)
-  }
 
   return (
     <li>
@@ -44,7 +23,7 @@ const CabinItem = ({ cabin }) => {
         <div className='flex gap-3 items-center'>
           <Modal>
             <Modal.Open opens="edit-form">
-              <button className=' flex items-center gap-3 bg-blue-600 text-white px-4 py-1 rounded-md' onClick={toggleEdit}>
+              <button className=' flex items-center gap-3 bg-blue-600 text-white px-4 py-1 rounded-md'>
                 <HiOutlinePencil className=' text-sm'  />
                 <span className='text-sm'>Edit</span>
               </button>
@@ -52,11 +31,17 @@ const CabinItem = ({ cabin }) => {
             <Modal.Window name="edit-form">
             <CabinForm cabin={cabin}   /> 
             </Modal.Window>
+            <Modal.Open>
+              <button className=' flex items-center gap-3 bg-red-600 text-white px-4 py-1 rounded-md'>
+              <HiOutlineTrash className=' text-sm' />
+              <span className='text-sm'>Delete</span>
+            </button>
+            </Modal.Open>
+            <Modal.Window>
+              <DeleteCabinWindow id={id} />
+            </Modal.Window>
           </Modal>
-          <button className=' flex items-center gap-3 bg-red-600 text-white px-4 py-1 rounded-md' onClick={() => mutate(id)} disabled={isDeleting}>
-            <HiOutlineTrash className=' text-sm' />
-            <span className='text-sm'>Delete</span>
-          </button>
+          
         </div>
       </div>
     </li>
