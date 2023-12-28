@@ -1,6 +1,10 @@
+import BookingsTable from "../components/BookingsTable"
+
 const Booking = () => {
   return (
-    <div>Booking</div>
+    <div>
+      <BookingsTable />
+    </div>
   )
 }
 
