@@ -3,10 +3,10 @@ import { useSearchParams } from "react-router-dom"
 import { PAGE_SIZE } from '../utils/constants'
 
 const Pagination = ( { count }) => {
+
   const [searchParams, setSearchParams] = useSearchParams();
   let currentPage = +searchParams.get('page') || Number(searchParams.get('page')) + 1
   const pageCount = Math.ceil(count / PAGE_SIZE)
-
   const nextPage = () => {
     currentPage = currentPage < pageCount ? currentPage + 1 : currentPage
     setSearchParams((prevParams) => {
@@ -21,7 +21,8 @@ const Pagination = ( { count }) => {
       return prevParams;
     })
   }
-  console.log(currentPage);
+  if (pageCount <= 1) return null;
+
   return (
     <div className=" flex justify-between items-center p-4">
       <p>
