@@ -17,8 +17,6 @@ export const useGetBookings = () => {
   });
 
   const pageCount = data?.total_pages;
-  console.log(pageCount);
-
   if (page < pageCount) {
     queryClient.prefetchQuery({
       queryKey: ['bookings', filter, sort, page + 1],

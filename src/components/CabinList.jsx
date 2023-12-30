@@ -31,7 +31,7 @@ const CabinList = () => {
   const modifier = direction === 'asc' ? 1 : -1;
   console.log(key, direction);
   const sortedCabins = filteredCabins.sort((a, b) => {
-    return (a['name'] - b['name']) * modifier;
+    return (a[key] - b[key]) * modifier;
   })
 
   
