@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 const SortSelect = ({ options }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortParam = searchParams.get('sort_by') || '';
-  console.log(sortParam);
   const handleChange = (e, key) => {
     const { value } = e.target
     setSearchParams((prevParams) => {

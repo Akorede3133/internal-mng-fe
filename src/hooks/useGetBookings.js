@@ -6,9 +6,13 @@ export const useGetBookings = () => {
   const [searchParams] = useSearchParams();
   const filterBy = searchParams.get('status') || ''
   const filter = {field: 'status', value: filterBy}
+  const sortValue = searchParams.get('sort_by') || '';
+  const [sortKey, direction] = sortValue.split('-');
+  const sort = { field: 'sort_by', value: sortKey, direction  }
+
   const {isPending, data, error} = useQuery({
-    queryKey: ['bookings', filter],
-    queryFn: () => getBookings(filter)
+    queryKey: ['bookings', filter, sort],
+    queryFn: () => getBookings(filter, sort)
   });
   
   return { isPending, data, error };
