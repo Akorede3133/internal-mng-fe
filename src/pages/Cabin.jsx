@@ -9,7 +9,7 @@ const Cabin = () => {
       <div className="flex justify-between items-center my-5">
         <h2>All cabins</h2>
         <div className=" flex items-center gap-4">
-          <Filter options={[{value: '', label: 'All'}, { value: 'no-discount', label: 'No discount'}, { value: 'with-discount', label: 'With discount' }]} />
+          <Filter type='discount' options={[{value: '', label: 'All'}, { value: 'no-discount', label: 'No discount'}, { value: 'with-discount', label: 'With discount' }]} />
           <Sort />
         </div>
       </div>

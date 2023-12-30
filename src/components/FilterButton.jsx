@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom"
 
-const FilterButton = ({ value, label }) => {
+const FilterButton = ({ value, label, type }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeKey = searchParams.get('discount') || '';
+  const activeKey = searchParams.get(type) || '';
   const handleClick = (value, key) => {
 
     setSearchParams((prevParams) => {
@@ -15,7 +15,7 @@ const FilterButton = ({ value, label }) => {
     })
   }
   return (
-    <button className={`${activeKey === value ? 'bg-blue-500 text-white' : 'bg-white text-gray-500'} capitalize bg-blue-60 text-white py-1 px-3 rounded-md text-sm`} onClick={() => handleClick(value, 'discount')}>{label}</button>
+    <button className={`${activeKey === value && 'bg-blue-500 text-white'} text-gray-500 capitalize py-1 px-3 rounded-md text-sm`} onClick={() => handleClick(value, type)}>{label}</button>
   )
 }
 
