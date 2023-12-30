@@ -11,6 +11,8 @@ const FilterButton = ({ value, label, type }) => {
       } else {
         prevParams.set(key, value)
       }
+      if (searchParams.get("page"))
+        prevParams.set('page', 1)
       return prevParams;
     })
   }
