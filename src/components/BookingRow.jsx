@@ -1,22 +1,29 @@
 import { HiEllipsisVertical } from "react-icons/hi2";
+import { format, isToday } from "date-fns";
 
-const BookingRow = () => {
+import { formatCurrency, formatDistanceFromNow } from "../utils/helpers";
+
+const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date, end_date, num_nights, total_price, status }) => {
   return (
     <li className="grid grid-cols-[1fr,2.2fr,2fr,1fr,1fr,1fr] text-center bg-white px-4 grid-rows-[auto] gap-4 items-start border-t border-gray-200 py-4">
-      <span>007</span>
+      <span>{name}</span>
       <p className=" flex flex-col text-sm">
-        <span>Jonas Schmedtmann</span>
-        <span>jonas.schmedtmann@gmail.com</span>
+        <span>{full_name}</span>
+        <span>{email}</span>
       </p>
       <p className=" flex flex-col text-sm">
-        <span>In 26 days 6 night stay</span>
-        <span>Jan 23 2024 — Jan 29 2024</span>
+        <span>{isToday(new Date(start_date))
+            ? "Today"
+            : formatDistanceFromNow(start_date)}{" "}
+          &rarr; {num_nights} night stay</span>
+        <span>{format(new Date(start_date), "MMM dd yyyy")} &mdash;{" "}
+          {format(new Date(end_date), "MMM dd yyyy")}</span>
       </p>
-      <p className="text-[10px] py-1 px-2 rounded-md  bg-[#E0F2FE] flex justify-center uppercase font-semibold items-center text-[#0397D1]">
-        unconfirmed
+      <p className={`text-[10px] py-1 px-2 rounded-full bg-[#E0F2FE] flex justify-center uppercase font-semibold items-center ${status === 'checked-in' && 'bg-green-200 text-green-600'} ${status === 'checked-out' && 'bg-gray-200 text-gray-600'} text-[#0397D1]`}>
+        {status}
       </p>
       <span>
-        $3,000.00
+        { formatCurrency(total_price)}
       </span>
       <span>
         <HiEllipsisVertical />
