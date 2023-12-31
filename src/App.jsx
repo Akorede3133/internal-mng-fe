@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import Bookings from "./pages/Bookings";
 import Booking from "./pages/Booking";
+import Checkin from "./pages/Checkin";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route element={<AppLayout />}>
@@ -17,6 +18,7 @@ const router = createBrowserRouter(createRoutesFromElements(
 
     <Route path="bookings" element={<Bookings />}/>
     <Route path="booking/:id" element={<Booking />}/>
+    <Route path="checkin/:id" element={<Checkin />}/>
 
     <Route path="cabins" element={<Cabin />}/>
     <Route path="users" element={<User />}/>
