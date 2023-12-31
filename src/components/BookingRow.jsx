@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import {  HiEllipsisVertical } from "react-icons/hi2";
-import { format, isToday, set } from "date-fns";
+import { format, isToday } from "date-fns";
 
 import { formatCurrency, formatDistanceFromNow } from "../utils/helpers";
 import BookingMenu from "./BookingMenu";

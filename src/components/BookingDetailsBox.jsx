@@ -1,49 +1,57 @@
+import { format, set } from "date-fns"
 import { HiHomeModern, HiOutlineChatBubbleBottomCenterText, HiOutlineCheckCircle, HiOutlineCurrencyDollar } from "react-icons/hi2"
+// import { useGetSettings } from '../hooks/useGetSettings'
+import { formatCurrency, formatDistanceFromNow } from "../utils/helpers"
 
-const BookingDetailsBox = () => {
+const BookingDetailsBox = ({breakfastPrice, num_nights, start_date, observations, num_guests, end_date, has_breakfast, is_paid, total_price, created_at, cabin: { name: cabinName}, guest: { full_name, country_flag, email, national_id }}) => {
+  // const { data: settings } = useGetSettings();
+  const breakfastCost = has_breakfast ? breakfastPrice * num_guests : 0;
+  const total_cost = has_breakfast ? total_price + breakfastCost : total_price;
   return (
     <article className="mt-10 mb-7">
       <div className=" flex justify-between items-center text-2xl bg-blue-600 text-white rounded-tl-md rounded-tr-md py-5 px-10">
         <p className="flex gap-2 items-center">
           <HiHomeModern />
-          <span>14 nights in Cabin 002</span>
+          <span>{num_nights} nights in Cabin {cabinName}</span>
         </p>
         <p>
-        Tue, May 07 2024 (In 4 months) — Tue, May 21 2024
+        { `${format(new Date(start_date), "EEE, MMM dd yyyy")} (${formatDistanceFromNow(start_date)}) — ${format(new Date(end_date), "EEE, MMM dd yyyy")} `} 
         </p>
       </div>
       <div className="bg-white py-5 px-10 shadow-[0_0_1px_rgba(0,0,0,0.2),-0_-0_1px_rgba(0,0,0,0.2)] rounded-bl-md rounded-br-md">
         <ul className="flex items-center gap-10">
           <li className="flex gap-4 items-center">
-            <img src="https://flagcdn.com/sg.svg" alt=""  className="w-4 object-cover"/>
-            <span className="font-semibold">Jonas Schmedtmann + 1 guests</span>
+            <img src={country_flag} alt=""  className="w-4 object-cover"/>
+            <span className="font-semibold">{full_name} + {num_guests} guests</span>
           </li>
           <li className=" list-disc text-gray-400">
-            jonas.schmedtmann@gmail.com
+            {email}
           </li>
-          <li className=" list-disc text-gray-400">National ID 43434343434</li>
+          <li className=" list-disc text-gray-400">National ID <span>{national_id}</span> </li>
         </ul>
        <div className=" my-5 space-y-2">
-        <p className=" text-[1.1rem] flex items-center gap-2 font-semibold text-gray-600">
-            <HiOutlineChatBubbleBottomCenterText className="text-blue-600 text-xl" />
-            <span>Observations</span>
-            <span>hhh</span>
+        { observations &&
+          <p className=" text-[1.1rem] flex items-center gap-2 font-semibold text-gray-600">
+              <HiOutlineChatBubbleBottomCenterText className="text-blue-600 text-xl" />
+              <span>Observations:</span>
+              <span>{observations}</span>
           </p>
+        }
           <p className=" text-[1.1rem] flex items-center gap-2 font-semibold text-gray-600">
             <HiOutlineCheckCircle className="text-blue-600 text-xl" />
             <span>Breakfast included?</span>
-            <span>no</span>
+            <span className=" capitalize">{has_breakfast ? 'yes' : 'no'}</span>
           </p>
        </div>
-       <div className="py-5 px-10 flex justify-between bg-[#FEF9C3] rounded-md  text-[#A16207] my-8">
+       <div className={` ${ is_paid ? 'bg-[#DCFCE7] text-[#188240]' : ' text-[#A16207] bg-[#FEF9C3]' } py-5 px-10 flex justify-between  rounded-md  my-8`}>
         <p className="flex font-semibold gap-3 items-center">
           <HiOutlineCurrencyDollar />
           <span>Total price</span>
-          <span className=" font-medium">$3,000.00</span>
+          <span className=" font-medium">{`${formatCurrency(total_cost)} ${ has_breakfast ? `(${formatCurrency(total_price)} cabin + ${formatCurrency(breakfastCost)} breakfast)`: ''}`}</span>
         </p>
-        <p className=" font-bold uppercase">Will pay at property</p>
+        <p className={`font-bold uppercase`}>{` ${ is_paid ? ' paid' : 'Will pay at property'} `}</p>
        </div>
-       <span className="text-sm text-right block">Booked Fri, Dec 29 2023, 1:10 PM</span>
+       <span className="text-sm text-right block">{`Booked ${format(new Date(created_at), 'EEE, MMM dd yyyy, p')}`}</span>
       </div>
     </article>
   )
