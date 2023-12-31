@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import {  HiEllipsisVertical } from "react-icons/hi2";
-import { format, isToday } from "date-fns";
+import { format, isToday, set } from "date-fns";
 
 import { formatCurrency, formatDistanceFromNow } from "../utils/helpers";
 import BookingMenu from "./BookingMenu";
@@ -10,16 +10,16 @@ const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date,
   const [showMenu, setShowMenu] = useState(false);
   const ref = useRef();
   useEffect(() => {
-    document.body.addEventListener('click', handleCloseMenu, true);
-    return () => document.body.removeEventListener('click', handleCloseMenu, true)
+    document.body.addEventListener('click', handleCloseMenu);
+    return () => document.body.removeEventListener('click', handleCloseMenu)
   }, [])
   const handleCloseMenu = (e) => {
-    if (e.target.contains(ref.current)) {
-      setShowMenu(false);
+    if (ref.current && !ref.current.contains(e.target)) {
+      setShowMenu(false)
     }
   }
   return (
-    <li className=" relative grid grid-cols-[0.6fr,2fr,2.4fr,1.4fr,1fr,3.2rem] text-center bg-white grid-rows-[auto] gap-4 items-start border-t border-gray-200 py-4">
+    <li className=" relative grid grid-cols-[0.6fr,2fr,2.4fr,1.4fr,1fr,3.2rem] text-center bg-white place-items-center gap-4 items-start border-t border-gray-200 py-4">
       <span>{name}</span>
       <p className=" flex flex-col text-sm">
         <span>{full_name}</span>
@@ -33,15 +33,15 @@ const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date,
         <span>{format(new Date(start_date), "MMM dd yyyy")} &mdash;{" "}
           {format(new Date(end_date), "MMM dd yyyy")}</span>
       </p>
-      <p className={`text-[10px] py-1 px-2 rounded-full bg-[#E0F2FE] flex justify-center uppercase font-semibold items-center ${status === 'checked-in' && 'bg-green-200 text-green-600'} ${status === 'checked-out' && 'bg-gray-200 text-gray-600'} text-[#0397D1]`}>
+      <p className={`text-[10px] w-[100px] py-1 px-2 rounded-full bg-[#E0F2FE] flex justify-center uppercase font-semibold items-center ${status === 'checked-in' && 'bg-green-200 text-green-600'} ${status === 'checked-out' && 'bg-gray-200 text-gray-600'} text-[#0397D1]`}>
         {status}
       </p>
       <span>
         { formatCurrency(total_price)}
       </span>
-      <span ref={ref} className=" items-end text-right">
-        <HiEllipsisVertical className="text-2xl text-gray-500 text-right  cursor-pointer items-end" id={id} onClick={() => setShowMenu((menu) => !menu)} />
-      </span>
+      <button ref={ref} className=" items-end text-right" onClick={() => setShowMenu((menu) => !menu)}>
+        <HiEllipsisVertical className="w-full text-2xl text-gray-500 text-right  cursor-pointer items-end" id={id}  />
+      </button>
       { showMenu && <BookingMenu status={status} /> }
     </li>
   )
