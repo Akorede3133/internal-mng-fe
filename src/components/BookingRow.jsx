@@ -5,6 +5,7 @@ import { format, isToday, set } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../utils/helpers";
 import BookingMenu from "./BookingMenu";
 import { useEffect, useRef, useState } from "react";
+import StatusTag from "./StatusTag";
 
 const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date, end_date, num_nights, total_price, status, id }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -33,9 +34,7 @@ const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date,
         <span>{format(new Date(start_date), "MMM dd yyyy")} &mdash;{" "}
           {format(new Date(end_date), "MMM dd yyyy")}</span>
       </p>
-      <p className={`text-[10px] w-[100px] py-1 px-2 rounded-full bg-[#E0F2FE] flex justify-center uppercase font-semibold items-center ${status === 'checked-in' && 'bg-green-200 text-green-600'} ${status === 'checked-out' && 'bg-gray-200 text-gray-600'} text-[#0397D1]`}>
-        {status}
-      </p>
+      <StatusTag status={status} />
       <span>
         { formatCurrency(total_price)}
       </span>
