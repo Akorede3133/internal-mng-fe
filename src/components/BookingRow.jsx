@@ -1,11 +1,25 @@
-import { HiEllipsisVertical } from "react-icons/hi2";
+/* eslint-disable react/prop-types */
+import {  HiEllipsisVertical } from "react-icons/hi2";
 import { format, isToday } from "date-fns";
 
 import { formatCurrency, formatDistanceFromNow } from "../utils/helpers";
+import BookingMenu from "./BookingMenu";
+import { useEffect, useRef, useState } from "react";
 
-const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date, end_date, num_nights, total_price, status }) => {
+const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date, end_date, num_nights, total_price, status, id }) => {
+  const [showMenu, setShowMenu] = useState(false);
+  const ref = useRef();
+  useEffect(() => {
+    document.body.addEventListener('click', handleCloseMenu, true);
+    return () => document.body.removeEventListener('click', handleCloseMenu, true)
+  }, [])
+  const handleCloseMenu = (e) => {
+    if (e.target.contains(ref.current)) {
+      setShowMenu(false);
+    }
+  }
   return (
-    <li className="grid grid-cols-[1fr,2.2fr,2fr,1fr,1fr,1fr] text-center bg-white px-4 grid-rows-[auto] gap-4 items-start border-t border-gray-200 py-4">
+    <li className=" relative grid grid-cols-[0.6fr,2fr,2.4fr,1.4fr,1fr,3.2rem] text-center bg-white grid-rows-[auto] gap-4 items-start border-t border-gray-200 py-4">
       <span>{name}</span>
       <p className=" flex flex-col text-sm">
         <span>{full_name}</span>
@@ -25,9 +39,10 @@ const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date,
       <span>
         { formatCurrency(total_price)}
       </span>
-      <span>
-        <HiEllipsisVertical />
+      <span ref={ref} className=" items-end text-right">
+        <HiEllipsisVertical className="text-2xl text-gray-500 text-right  cursor-pointer items-end" id={id} onClick={() => setShowMenu((menu) => !menu)} />
       </span>
+      { showMenu && <BookingMenu status={status} /> }
     </li>
   )
 }

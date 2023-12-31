@@ -1,3 +1,4 @@
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from "react-icons/hi2";
 import { useGetBookings } from "../hooks/useGetBookings"
 import BookingRow from "./BookingRow"
 import Pagination from "./Pagination";
@@ -10,7 +11,7 @@ const BookingsList = () => {
   const { bookings, total_entries }  =  data;
   return (
     <div>
-      <div className="grid items-start text-center grid-cols-[1fr,2.2fr,2fr,1fr,1fr,1fr] bg-[#F9FAFB] gap-4 p-4">
+      <div className="grid items-start text-center grid-cols-[0.6fr,2fr,2.4fr,1.4fr,1fr,3.2rem] bg-[#F9FAFB] gap-4 p-4">
         <p className=" font-semibold uppercase text-[#626C71]">Cabin</p>
         <p className=" font-semibold uppercase text-[#626C71]">guest</p>
         <p className=" font-semibold uppercase text-[#626C71]">dates</p>
