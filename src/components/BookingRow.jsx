@@ -41,7 +41,7 @@ const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date,
       <button ref={ref} className=" items-end text-right" onClick={() => setShowMenu((menu) => !menu)}>
         <HiEllipsisVertical className="w-full text-2xl text-gray-500 text-right  cursor-pointer items-end" id={id}  />
       </button>
-      { showMenu && <BookingMenu status={status} /> }
+      { showMenu && <BookingMenu status={status} id={id} /> }
     </li>
   )
 }
