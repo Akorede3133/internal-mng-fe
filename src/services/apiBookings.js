@@ -23,7 +23,6 @@ export const getBooking = async (id) => {
 }
 
 export const checkin = async (id, obj) => {
-  console.log(id);
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
       method: 'PUT',
@@ -32,7 +31,23 @@ export const checkin = async (id, obj) => {
       },
       body: JSON.stringify(obj)
     });
-    if (!response.ok) throw new Error('Failed to get checkin booking');
+    if (!response.ok) throw new Error('Failed to checkin booking');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+export const checkout = async (id, obj) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj)
+    });
+    if (!response.ok) throw new Error('Failed to checkout booking');
     const data = await response.json();
     return data;
   } catch (error) {
