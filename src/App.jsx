@@ -11,6 +11,7 @@ import Bookings from "./pages/Bookings";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -21,9 +22,8 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="bookings" element={<Bookings />}/>
       <Route path="booking/:id" element={<Booking />}/>
       <Route path="checkin/:id" element={<Checkin />}/>
-
+      <Route path="users" element={<Signup />}/>
       <Route path="cabins" element={<Cabin />}/>
-      <Route path="users" element={<User />}/>
       <Route path="settings" element={<Settings />}/>
     </Route>
     <Route path="login" element={<Login />}/>
