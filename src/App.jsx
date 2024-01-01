@@ -13,21 +13,22 @@ import Checkin from "./pages/Checkin";
 import Login from "./pages/Login";
 
 const router = createBrowserRouter(createRoutesFromElements(
-  <Route element={<AppLayout />}>
-    <Route path="/" element={<Navigate to="dashboard" replace />}  />
-    <Route path="dashboard" element={<Dashboard />}/>
+  <Route>
+    <Route element={<AppLayout />}>
+      <Route path="/" element={<Navigate to="dashboard" replace />}  />
+      <Route path="dashboard" element={<Dashboard />}/>
 
-    <Route path="bookings" element={<Bookings />}/>
-    <Route path="booking/:id" element={<Booking />}/>
-    <Route path="checkin/:id" element={<Checkin />}/>
+      <Route path="bookings" element={<Bookings />}/>
+      <Route path="booking/:id" element={<Booking />}/>
+      <Route path="checkin/:id" element={<Checkin />}/>
 
-    <Route path="cabins" element={<Cabin />}/>
-    <Route path="users" element={<User />}/>
-    <Route path="settings" element={<Settings />}/>
+      <Route path="cabins" element={<Cabin />}/>
+      <Route path="users" element={<User />}/>
+      <Route path="settings" element={<Settings />}/>
+    </Route>
     <Route path="login" element={<Login />}/>
-
-
   </Route>
+  
 ))
 
 const queryClient = new QueryClient({
