@@ -1,10 +1,16 @@
 import { useForm } from "react-hook-form"
-const REGEX =  /^[a-zA-Z0-9. _-]+@[a-zA-Z0-9. -]+\. [a-zA-Z]{2,4}$/
+import { useSignUp } from "../hooks/useSignUp";
 const SingupForm = () => {
   const { register, handleSubmit, formState } = useForm();
+  const { signUpUser, isSigningUp } = useSignUp();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const userData = {
+      user: {
+        ...data
+      }
+    }
+   signUpUser(userData)
   }
   const { errors } = formState;
   return (
@@ -34,7 +40,7 @@ const SingupForm = () => {
         </section>
       <section className=" flex justify-end gap-4 mt-5">
         <button type="reset" className="px-4 py-2 text-gray-300 border border-gray-300 rounded-md font-medium" >Cancel</button>
-        <button className="px-4 py-2 text-white bg-blue-600 rounded-md font-medium" >Create new user </button>
+        <button className="px-4 py-2 text-white bg-blue-600 rounded-md font-medium" >{`${isSigningUp ? 'Signing up...': 'Create new user'}`}</button>
       </section>
     </form>
   )
