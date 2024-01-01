@@ -10,7 +10,7 @@ export const useCheckout = () => {
     mutationFn: ({ id, data }) =>  checkout(id, data),
     onSuccess: (data) => {
       toast.success(`Booking #${data.id} sucessfully checked out`);
-      queryClient.invalidateQueries({ queryKey: ['bookings']})
+      queryClient.invalidateQueries({ active: true })
       navigate(`/booking/${data.id}`)
     },
     onError: () => {
