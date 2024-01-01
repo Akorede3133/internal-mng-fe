@@ -3,10 +3,10 @@ import { HiHomeModern, HiOutlineChatBubbleBottomCenterText, HiOutlineCheckCircle
 // import { useGetSettings } from '../hooks/useGetSettings'
 import { formatCurrency, formatDistanceFromNow } from "../utils/helpers"
 
-const BookingDetailsBox = ({breakfastPrice, num_nights, start_date, observations, num_guests, end_date, has_breakfast, is_paid, total_price, created_at, cabin: { name: cabinName}, guest: { full_name, country_flag, email, national_id }}) => {
+const BookingDetailsBox = ({breakfastPrice, num_nights, start_date, observations, num_guests, end_date, cabin_price, extras_price, has_breakfast, is_paid, total_price, created_at, cabin: { name: cabinName}, guest: { full_name, country_flag, email, national_id }}) => {
   // const { data: settings } = useGetSettings();
-  const breakfastCost = has_breakfast ? breakfastPrice * num_guests : 0;
-  const total_cost = has_breakfast ? total_price + breakfastCost : total_price;
+  const breakfastCost =  breakfastPrice * num_guests * num_nights;
+  const total_cost = has_breakfast ? breakfastCost + total_price  : total_price;
   return (
     <article className="mt-10 mb-7">
       <div className=" flex justify-between items-center text-2xl bg-blue-600 text-white rounded-tl-md rounded-tr-md py-5 px-10">
@@ -47,7 +47,7 @@ const BookingDetailsBox = ({breakfastPrice, num_nights, start_date, observations
         <p className="flex font-semibold gap-3 items-center">
           <HiOutlineCurrencyDollar />
           <span>Total price</span>
-          <span className=" font-medium">{`${formatCurrency(total_cost)} ${ has_breakfast ? `(${formatCurrency(total_price)} cabin + ${formatCurrency(breakfastCost)} breakfast)`: ''}`}</span>
+          <span className=" font-medium">{`${formatCurrency(total_price)} ${ has_breakfast ? `(${formatCurrency(cabin_price)} cabin + ${formatCurrency(extras_price)} breakfast)`: ''}`}</span>
         </p>
         <p className={`font-bold uppercase`}>{` ${ is_paid ? ' paid' : 'Will pay at property'} `}</p>
        </div>
