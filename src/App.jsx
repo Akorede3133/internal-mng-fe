@@ -12,10 +12,16 @@ import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
-    <Route element={<AppLayout />}>
+    <Route element={
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+      }
+    >
       <Route path="/" element={<Navigate to="dashboard" replace />}  />
       <Route path="dashboard" element={<Dashboard />}/>
 

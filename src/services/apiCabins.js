@@ -1,6 +1,11 @@
 export const getCabins = async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/v1/cabins');
+    const response = await fetch('http://localhost:3000/api/v1/cabins', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      }
+    });
     if (!response.ok) throw new Error("Failed to fetch");
     const data = await response.json();
     return data;
@@ -12,7 +17,11 @@ export const getCabins = async () => {
 export const deleteCabin = async (id) => {
   try {
     const response = await fetch(`http://localhost:3000/api/v1/cabins/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      }
     });
     if (!response.ok) throw new Error("Failed to delete");
     const data = await response.json();
@@ -37,6 +46,9 @@ export const createCabin = async (data) => {
   try {
     const response = await fetch(`http://localhost:3000/api/v1/cabins`, {
       method: 'POST',
+      headers: {
+        Authorization: localStorage.getItem('token')
+      },
       body: formData
     });
     if (!response.ok) throw new Error("Failed to create");
@@ -61,6 +73,9 @@ export const updateCabin = async (editData, id) => {
   try {
     const response = await fetch(`http://localhost:3000/api/v1/cabins/${id}`, {
       method: 'PUT',
+      headers: {
+        Authorization: localStorage.getItem('token')
+      },
       body: formData
     });
     if (!response.ok) throw new Error("Failed to edit");

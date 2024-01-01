@@ -18,7 +18,12 @@ export const getBookings = async ({ field, value }, { field: sortField, value: s
 
 export const getBooking = async (id) => {
   try {
-    const response = await fetch(`${BASE_URL}/${id}`);
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      }
+    });
     if (!response.ok) throw new Error('Failed to get booking');
     const data = await response.json();
     return data;
@@ -33,6 +38,7 @@ export const checkin = async (id, obj) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
       },
       body: JSON.stringify(obj)
     });
@@ -49,6 +55,7 @@ export const checkout = async (id, obj) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
       },
       body: JSON.stringify(obj)
     });

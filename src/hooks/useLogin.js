@@ -11,8 +11,8 @@ export const useLogin = () => {
       toast.success('User successfully logged in')
       navigate('/');
     },
-    onError: (error) => {
-      toast.error(error.message);
+    onError: () => {
+      toast.error('Incorrect Login credentials');
     }
   })
 

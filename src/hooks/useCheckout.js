@@ -14,7 +14,7 @@ export const useCheckout = () => {
       navigate(`/booking/${data.id}`)
     },
     onError: () => {
-      toast.error(error.message)
+      toast.error('Booking could not be checked out')
     }
   })
   
