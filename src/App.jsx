@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import Bookings from "./pages/Bookings";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route element={<AppLayout />}>
@@ -23,6 +24,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="cabins" element={<Cabin />}/>
     <Route path="users" element={<User />}/>
     <Route path="settings" element={<Settings />}/>
+    <Route path="login" element={<Login />}/>
+
 
   </Route>
 ))
