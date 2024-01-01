@@ -20,9 +20,9 @@ const Modal = ({ children }) => {
 }
 
 const Open = ( { children, opens } ) => {
-  const { open, openModal } = useContext(ModalContext)
+  const { open } = useContext(ModalContext)
   return (
-    <div className="flex justify-center">
+    <div className="">
       { cloneElement(children, { onClick: () => (open(opens)) }) }
     </div>
   )
@@ -36,7 +36,7 @@ const Window = ({ children, name }) => {
 
   return createPortal (
     <Overlay >
-      <div ref={ref} className=" bg-white p-4 shadow-lg my-10 fixed z-10  left-[50%] translate-x-[-50%] w-[90%] md:w-[60%] translate-y-[-50%]  top-[50%] transition-all delay-75">
+      <div ref={ref} className=" bg-white p-4 shadow-lg my-10 fixed z-20 left-[50%] translate-x-[-50%] w-[90%] md:w-[60%] translate-y-[-50%]  top-[50%] transition-all delay-75">
         <button className="w-full flex justify-end" >
           <HiOutlineXMark className="text-2xl cursor-pointer" onClick={close} />
         </button>

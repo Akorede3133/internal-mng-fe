@@ -4,21 +4,15 @@ import { format, isToday } from "date-fns";
 
 import { formatCurrency, formatDistanceFromNow } from "../utils/helpers";
 import BookingMenu from "./BookingMenu";
-import { useEffect, useRef, useState } from "react";
+import {  useState } from "react";
 import StatusTag from "./StatusTag";
+import useOutsideClick from "../hooks/useOutsideClick";
 
-const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date, end_date, num_nights, total_price, status, id }) => {
+const BookingRow = ( {cabin: { name }, guest: { full_name, email }, start_date, end_date, num_nights, total_price, status, id }) => {
   const [showMenu, setShowMenu] = useState(false);
-  const ref = useRef();
-  useEffect(() => {
-    document.body.addEventListener('click', handleCloseMenu);
-    return () => document.body.removeEventListener('click', handleCloseMenu)
-  }, [])
-  const handleCloseMenu = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      setShowMenu(false)
-    }
-  }
+  console.log(showMenu);
+  // const handler = () => setShowMenu(false);
+  // const ref = useOutsideClick(handler);
   return (
     <li className=" relative grid grid-cols-[0.6fr,2fr,2.4fr,1.4fr,1fr,3.2rem] text-center bg-white place-items-center gap-4 items-start border-t border-gray-200 py-4">
       <span>{name}</span>
@@ -38,10 +32,10 @@ const BookingRow = ( { cabin: { name }, guest: { full_name, email }, start_date,
       <span>
         { formatCurrency(total_price)}
       </span>
-      <button ref={ref} className=" items-end text-right" onClick={() => setShowMenu((menu) => !menu)}>
+      <button  className=" items-end text-right" onClick={() => setShowMenu((prev) => !prev)}>
         <HiEllipsisVertical className="w-full text-2xl text-gray-500 text-right  cursor-pointer items-end" id={id}  />
       </button>
-      { showMenu && <BookingMenu status={status} id={id} /> }
+      { showMenu && <BookingMenu status={status} id={id} setShowMenu={setShowMenu} /> }
     </li>
   )
 }

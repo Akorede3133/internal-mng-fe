@@ -8,7 +8,6 @@ const useOutsideClick = (handler) => {
     const handleClick = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
         handler();
-
       }
     }
     document.addEventListener('click', handleClick, true)
