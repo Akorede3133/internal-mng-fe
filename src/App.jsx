@@ -13,6 +13,7 @@ import Checkin from "./pages/Checkin";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -31,6 +32,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="users" element={<Signup />}/>
       <Route path="cabins" element={<Cabin />}/>
       <Route path="settings" element={<Settings />}/>
+      <Route path="account" element={<Profile />}/>
     </Route>
     <Route path="login" element={<Login />}/>
   </Route>
