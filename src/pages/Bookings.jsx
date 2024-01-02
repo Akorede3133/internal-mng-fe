@@ -4,7 +4,7 @@ import Sort from "../components/Sort"
 
 const Bookings = () => {
   return (
-    <section className="py-10 w-[90%] mx-auto relative">
+    <section className="py-10 dark:bg-slate-800 w-[90%] mx-auto relative">
        <div className="flex justify-between items-center my-5">
         <h2>All Bookings</h2>
         <div className=" flex items-center gap-4">

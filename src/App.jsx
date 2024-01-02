@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
+import { DarkModeProvider } from "./context/darkModeContext";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route>
@@ -48,29 +49,31 @@ const queryClient = new QueryClient({
 })
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <RouterProvider router={router} />
-      <Toaster 
-      position="top-center" 
-      gutter={12}
-      containerStyle={{margin: '10px'}}
-      toastOptions={{
-        success: {
-          duration: 3000,
-        },
-        error: {
-          duration: 4000
-        },
-        style: {
-          fontSize: '16px',
-          maxWidth: '500px',
-          padding: '16px 24px',
-          backgroundColor: '',
-          color: 'gray'
-        }
-      }} 
-      />
-    </QueryClientProvider>
+    <DarkModeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <RouterProvider router={router} />
+        <Toaster 
+        position="top-center" 
+        gutter={12}
+        containerStyle={{margin: '10px'}}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 4000
+          },
+          style: {
+            fontSize: '16px',
+            maxWidth: '500px',
+            padding: '16px 24px',
+            backgroundColor: '',
+            color: 'gray'
+          }
+        }} 
+        />
+      </QueryClientProvider>
+    </DarkModeProvider>
   )
 }
