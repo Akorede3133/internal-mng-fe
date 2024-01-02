@@ -33,14 +33,14 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit}  action="" className='bg-white shadow-md md:w-[500px] w-[85%] rounded-md p-10 my-10 space-y-5'>
         <section className=' space-y-2'>
           <label htmlFor="email" className='text-[#374151] font-medium '>Email address</label>
-          <input type="email" name='email' id="email" autoComplete='email' value={loginData.email} onChange={handleChange}  className=' border border-gray-400 rounded px-4 py-2 w-full outline-blue-600'/>
+          <input type="email" name='email' id="email" autoComplete='email' value={loginData.email} onChange={handleChange}  className=' border border-gray-400 rounded px-4 py-2 w-full outline-blue-600' disabled={isLogingin}/>
         </section>
         <section className=' space-y-2'>
           <label htmlFor="password" className='text-[#374151] font-medium '>Password</label>
-          <input type="password"  id="password" name='password' autoComplete='password' value={loginData.password} onChange={handleChange} className=' border border-gray-400 rounded px-4 py-2 w-full outline-blue-600'/>
+          <input type="password"  id="password" name='password' autoComplete='password' value={loginData.password} onChange={handleChange} className=' border border-gray-400 rounded px-4 py-2 w-full outline-blue-600' disabled={isLogingin}/>
         </section>
         <section>
-          <button className='bg-blue-600 hover:bg-blue-800 text-white w-full p-3 rounded'>Log in</button>
+          <button className='bg-blue-600 hover:bg-blue-800 text-white w-full p-3 rounded'>{isLogingin ? 'Loging in... ' : 'Log in'}</button>
         </section>
       </form>
     </section>

@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { HiBars3CenterLeft, HiOutlineArrowRightOnRectangle, HiOutlineMoon, HiOutlineUser } from "react-icons/hi2";
+import { useLogout } from '../hooks/useLogout';
 const Header = () => {
+  const { logoutUser, isLogingOut }  = useLogout();
   return (
     <header className='col-span-full row-start-1 row-end-1 flex md:justify-end p-3 bg-white shadow-2xl'>
        <ul className="hidden md:flex items-center ">
@@ -14,7 +16,7 @@ const Header = () => {
             <HiOutlineMoon className="text-[#5B53E7] text-xl"  />
           </button>
         </li>
-        <li className="px-3 py-2 hover:bg-blue-500 hover:text-white">
+        <li className="px-3 py-2 hover:bg-blue-500 hover:text-white" onClick={logoutUser}>
           <NavLink className=" flex items-center gap-2">
             <HiOutlineArrowRightOnRectangle className="text-[#5B53E7] text-xl" />
           </NavLink>

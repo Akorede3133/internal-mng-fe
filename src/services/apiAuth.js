@@ -66,3 +66,21 @@ export const getCurrentUser = async () => {
     throw new Error(error.message)
   }
 }
+
+export const logout = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/logout`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token')
+      }
+    });
+
+    if (!response.ok) throw new Error('Cannot log out user')
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
