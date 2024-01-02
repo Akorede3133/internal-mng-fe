@@ -6,17 +6,17 @@ const Header = () => {
   return (
     <header className='col-span-full row-start-1 row-end-1 flex md:justify-end p-3 bg-white shadow-2xl'>
        <ul className="hidden md:flex items-center ">
-        <li className="px-3 py-2 hover:bg-blue-500 hover:text-white">
-          <NavLink to=''  className=" flex items-center gap-2">
+        <li className="px-2 py-2 hover:bg-[#E5E7EB] rounded-md cursor-pointer">
+          <NavLink to='/account'  className=" flex items-center gap-2">
             <HiOutlineUser className="text-[#5B53E7] text-xl" />
           </NavLink>
         </li>
-        <li className="px-3 py-2 hover:bg-blue-500 hover:text-white">
+        <li className="px-2 py-2 hover:bg-[#E5E7EB] rounded-md cursor-pointer">
           <button className=" flex items-center gap-2">
             <HiOutlineMoon className="text-[#5B53E7] text-xl"  />
           </button>
         </li>
-        <li className="px-3 py-2 hover:bg-blue-500 hover:text-white" onClick={logoutUser}>
+        <li className="px-2 py-2 hover:bg-[#E5E7EB] rounded-md cursor-pointer" onClick={logoutUser}>
           <NavLink className=" flex items-center gap-2">
             <HiOutlineArrowRightOnRectangle className="text-[#5B53E7] text-xl" />
           </NavLink>
