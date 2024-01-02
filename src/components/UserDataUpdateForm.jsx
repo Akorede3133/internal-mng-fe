@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useGetCurrentUser } from '../hooks/useGetCurrentUser';
 import { useUpdateAccount } from '../hooks/useUpdateAccount';
-import toast from 'react-hot-toast';
 
 const UserDataUpdateForm = () => {
   const { currentUser: {name: fullName, email} } = useGetCurrentUser();
@@ -21,6 +20,9 @@ const UserDataUpdateForm = () => {
     }
     updateUserAccount(userData);
   }
+  const handleCancel = () => {
+    setName(fullName)
+  }
   return (
     <div>
       <h3 className="text-2xl font-semibold pb-7">Update user data</h3>
@@ -38,7 +40,7 @@ const UserDataUpdateForm = () => {
         <input type="password" id="current_password" className=" border border-gray-300 rounded-md py-2 px-3 outline-blue-600" value={current_password} onChange={(e) => setCurrentPassword(e.target.value)}  />
         </section>
       <section className=" flex justify-end gap-4 mt-5">
-        <button type="reset" className="px-4 py-2 text-gray-300 border border-gray-300 rounded-md font-medium" >Cancel</button>
+        <button type='button' className="px-4 py-2 text-gray-300 border border-gray-300 rounded-md font-medium" onClick={handleCancel} >Cancel</button>
         <button className="px-4 py-2 text-white bg-blue-600 rounded-md font-medium" disabled={isUpdating} >Update account</button>
       </section>
       
